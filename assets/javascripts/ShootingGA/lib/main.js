@@ -7,7 +7,7 @@ onload = function(){
 function main(){
 	// SceneGraphRoot object create.
 	var sgroot = new SceneGraphRoot();
-	sgroot.gameTime = 1800;
+	sgroot.gameTime = 5300;
 	start(sgroot);
 }
 
@@ -21,8 +21,8 @@ function start(sgroot){
 	
 	canvas.addEventListener('click', onClick, false);
 	
-	sgroot.field_start_x = 10;
-	sgroot.field_start_y = 10;
+	sgroot.start_field_x = 10;
+	sgroot.start_field_y = 10;
 	sgroot.w = canvas.width * 0.9;      // set screen size x.
 	sgroot.h = canvas.height * 0.9;     // set screen size y.
 
@@ -43,6 +43,5 @@ function initGeneGroup(sgroot){
 		for(var num = 0; num < sgroot.gameTime; num++){
 			sgroot.gene_group[n][num] = Math.floor( Math.random() * 18); // 0 - 9 pattern
 		}
-		console.log(sgroot.gene_group[n])
 	}
 }

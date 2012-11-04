@@ -19,6 +19,7 @@ SceneGraphRoot = function(){
 		this.first_flag = true;
 		this.sub_gene = new Array();
 		this.player_move = false;
+		this.finish_flag = false;
 }
 
 
@@ -35,14 +36,14 @@ SceneGraph.prototype.mainLoop = function(sgroot, sg){
 	while(sg.frame <= sgroot.gameTime){	
 		sg.frame += 1;
 		sgroot.child.enemyScenario(sgroot, sg);
-		sgroot.child.moveBullet(sgroot, sg);
+		sgroot.child.moveBullet(sgroot, sg.player_bullets);
+		sgroot.child.moveBullet(sgroot, sg.enemy_bullets);
 		sgroot.child.movePlayer(sgroot, sg);
 		if(!sgroot.player_move){
 			sgroot.child.moveAuto(sgroot, sg);
 		}else{
 			sgroot.player_move = false;
 		}
-		//sgroot.child.moveAuto(sgroot, sg);
 		sgroot.child.moveEnemy(sgroot, sg);
 		
 		sgroot.child.enemyCollision(sgroot, sg);
@@ -53,11 +54,12 @@ SceneGraph.prototype.mainLoop = function(sgroot, sg){
 		}
 	}
 	
-	if($("input#express").attr('checked') && sgroot.think_count == 1){
+	if(sgroot.think_count == 1){
 		sgroot.child.drawScreen(sgroot, sg);
-		sgroot.child.drawPlayer(sgroot, sg);
-		sgroot.child.drawBullet(sgroot, sg);
-		sgroot.child.drawEnemy(sgroot, sg);
+		sgroot.child.drawPlayer(sgroot, sg.player);
+		sgroot.child.drawBullet(sgroot, sg.player_bullets);
+		sgroot.child.drawBullet(sgroot, sg.enemy_bullets);
+		sgroot.child.drawEnemy(sgroot, sg.enemys);
 	}
 	if(sgroot.loop_flag){
 		restartEvolution(sgroot, sg);
